@@ -1,0 +1,15 @@
+# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+
+# Build output
+bin/
+obj/
+TestResults/
+
+# Others
+*.nupkg
+packages/
