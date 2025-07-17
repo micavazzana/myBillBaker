@@ -13,7 +13,6 @@ namespace BillBakerCore
         private string tipoFactura;
 
         //Pantalla 2 : Dropdowns
-        private string fecha;
         private string conceptoAIncluir; //si es servicios o productos
         private string periodoDesde;
         private string periodoHasta;
@@ -28,39 +27,80 @@ namespace BillBakerCore
         private int cantidad;
         private decimal monto;
 
-        public Factura(string puntoDeVenta, string tipoFactura, string fecha, string conceptoAIncluir, string periodoDesde, string periodoHasta, string condicionIvaCliente, string cuitCliente, string condicionDeVenta, string descripcion, int cantidad, decimal monto)
+        public Factura(string periodoDesde, string periodoHasta, string condicionIvaCliente, string cuitCliente, string condicionDeVenta, string descripcion, int cantidad, decimal monto)
+        {
+            this.PeriodoDesde = periodoDesde;
+            this.PeriodoHasta = periodoHasta;
+            this.CondicionIvaCliente = condicionIvaCliente;
+            this.CuitCliente = cuitCliente;
+            this.CondicionDeVenta = condicionDeVenta;
+            this.Descripcion = descripcion;
+            this.Cantidad = cantidad;
+            this.Monto = monto;
+        }
+        public Factura(string puntoDeVenta, string tipoFactura, string conceptoAIncluir, string periodoDesde, string periodoHasta, string condicionIva, string cuitCliente, string condicionVenta, string descripcion, int cantidad, decimal monto) 
+            : this(periodoDesde, periodoHasta, condicionIva, cuitCliente, condicionVenta, descripcion, cantidad, monto)
         {
             this.PuntoDeVenta = puntoDeVenta;
             this.TipoFactura = tipoFactura;
-            this.fecha = fecha;
-            this.conceptoAIncluir = conceptoAIncluir;
-            this.periodoDesde = periodoDesde;
-            this.periodoHasta = periodoHasta;
-            this.condicionIvaCliente = condicionIvaCliente;
-            this.cuitCliente = cuitCliente;
-            this.condicionDeVenta = condicionDeVenta;
-            this.descripcion = descripcion;
-            this.cantidad = cantidad;
-            this.monto = monto;
+            this.ConceptoAIncluir = conceptoAIncluir;
         }
 
         //Getters and Setters
         public string PuntoDeVenta
         {
-            get => puntoDeVenta;
-            set { if (puntoDeVenta != null) puntoDeVenta = value; }
+            get => this.puntoDeVenta;
+            set => this.puntoDeVenta = Validador.ValidarObligatorio(value, nameof(PuntoDeVenta));
         }
-        public string TipoFactura { get => tipoFactura; set { if (tipoFactura != null) tipoFactura = value; } }
-        public string Fecha { get => fecha; set => fecha = value; }
-        public string ConceptoAIncluir { get => conceptoAIncluir; set => conceptoAIncluir = value; }
-        public string PeriodoDesde { get => periodoDesde; set => periodoDesde = value; }
-        public string PeriodoHasta { get => periodoHasta; set => periodoHasta = value; }
-        public string CondicionIvaCliente { get => condicionIvaCliente; set => condicionIvaCliente = value; }
-        public string CuitCliente { get => cuitCliente; set => cuitCliente = value; }
-        public string CondicionDeVenta { get => condicionDeVenta; set => condicionDeVenta = value; }
-        public string Descripcion { get => descripcion; set => descripcion = value; }
-        public int Cantidad { get => cantidad; set => cantidad = value; }
-        public decimal Monto { get => monto; set => monto = value; }
-
+        public string TipoFactura 
+        { 
+            get => this.tipoFactura; 
+            set => this.tipoFactura = Validador.ValidarObligatorio(value, nameof(TipoFactura));
+        }
+        public string ConceptoAIncluir
+        {
+            get => this.conceptoAIncluir;
+            set => this.conceptoAIncluir = Validador.ValidarObligatorio(value, nameof(ConceptoAIncluir));
+        }
+        public string PeriodoDesde
+        {
+            get => this.periodoDesde;
+            set => this.periodoDesde = (Validador.ValidarObligatorio(value, nameof(PeriodoDesde))).ToString();
+        }
+        public string PeriodoHasta
+        {
+            get => this.periodoHasta;
+            set => this.periodoHasta = Validador.ValidarObligatorio(value, nameof(PeriodoHasta));
+        }
+        public string CondicionIvaCliente 
+        { 
+            get => this.condicionIvaCliente; 
+            set => this.condicionIvaCliente = Validador.ValidarObligatorio(value, nameof(CondicionIvaCliente));
+        }
+        public string CuitCliente 
+        { 
+            get => this.cuitCliente; 
+            set => this.cuitCliente = string.IsNullOrWhiteSpace(value) ? string.Empty : value; 
+        }
+        public string CondicionDeVenta 
+        { 
+            get => this.condicionDeVenta; 
+            set => this.condicionDeVenta = Validador.ValidarObligatorio(value, nameof(CondicionDeVenta)); 
+        }
+        public string Descripcion 
+        { 
+            get => this.descripcion; 
+            set => this.descripcion = Validador.ValidarObligatorio(value, nameof(Descripcion)); 
+        }
+        public int Cantidad 
+        { 
+            get => this.cantidad; 
+            set => this.cantidad = value; 
+        }
+        public decimal Monto 
+        { 
+            get => monto; 
+            set => monto = value; 
+        }
     }
 }

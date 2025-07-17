@@ -13,6 +13,21 @@ namespace BillBakerCore
     public static class Validador
     {
         /// <summary>
+        /// Chequea si el valor que recibe es null o vacío
+        /// Arroja una Exception de ser asi, sino devuelve el valor.
+        /// </summary>
+        /// <param name="valor"></param>
+        /// <param name="campo"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static string ValidarObligatorio(string valor, string campo)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                throw new ArgumentException($"{campo} no puede estar vacío.");
+            return valor;
+        }
+
+        /// <summary>
         /// Chequea que los datos no estén vacíos antes del envío al sitio
         /// </summary>
         /// <param name="cuit"> cuit del usuario</param>

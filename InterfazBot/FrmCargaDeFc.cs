@@ -8,7 +8,9 @@ namespace InterfazBot
         private Baker facturador;
 
         /// <summary>
-        /// 
+        /// Constructor
+        /// Inicializa el facturador con el que recibe del formulario anterior.
+        /// Deshabilita todos los botones que se habilitaran solo si estamos en la pestaña correcta.
         /// </summary>
         /// <param name="miFacturador"></param>
         public FrmCargaDeFc(Baker miFacturador)
@@ -20,7 +22,9 @@ namespace InterfazBot
         }
 
         /// <summary>
-        /// 
+        /// Chequea que haya más de una pestaña ya que RCEL abre en una nueva,
+        /// de ser el caso switchea a la primer ventana abierta y chequea si esta es la de RCEL.
+        /// De ser que estamos en RCEL entonces habilitamos los botones que permiten empezar a crear FC
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -28,12 +32,10 @@ namespace InterfazBot
         {
             ReadOnlyCollection<string> ventanas = facturador.ControladorChrome.WindowHandles;
 
-            //Me fijo si hay más de una pestaña, ya que RCEL abre en una nueva
             if (ventanas.Count > 1)
             {
-                //Cambio a la siguiente ventana
                 facturador.ControladorChrome.SwitchTo().Window(ventanas[1]);
-                //Si encuentra que la ventana en que esta en RCEL estamos ok para hacer nuestras facturas
+             
                 if (facturador.ControladorChrome.Url.Contains("rcel"))
                 {
                     btnCargarExcel.Enabled = true;
