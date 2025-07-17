@@ -14,8 +14,8 @@ namespace BillBakerCore
 
         //Pantalla 2 : Dropdowns
         private string conceptoAIncluir; //si es servicios o productos
-        private string periodoDesde;
-        private string periodoHasta;
+        private DateTime periodoDesde;
+        private DateTime periodoHasta;
 
         //Pantalla 3
         private string condicionIvaCliente;
@@ -27,7 +27,7 @@ namespace BillBakerCore
         private int cantidad;
         private decimal monto;
 
-        public Factura(string periodoDesde, string periodoHasta, string condicionIvaCliente, string cuitCliente, string condicionDeVenta, string descripcion, int cantidad, decimal monto)
+        public Factura(DateTime periodoDesde, DateTime periodoHasta, string condicionIvaCliente, string cuitCliente, string condicionDeVenta, string descripcion, int cantidad, decimal monto)
         {
             this.PeriodoDesde = periodoDesde;
             this.PeriodoHasta = periodoHasta;
@@ -38,7 +38,7 @@ namespace BillBakerCore
             this.Cantidad = cantidad;
             this.Monto = monto;
         }
-        public Factura(string puntoDeVenta, string tipoFactura, string conceptoAIncluir, string periodoDesde, string periodoHasta, string condicionIva, string cuitCliente, string condicionVenta, string descripcion, int cantidad, decimal monto) 
+        public Factura(string puntoDeVenta, string tipoFactura, string conceptoAIncluir, DateTime periodoDesde, DateTime periodoHasta, string condicionIva, string cuitCliente, string condicionVenta, string descripcion, int cantidad, decimal monto) 
             : this(periodoDesde, periodoHasta, condicionIva, cuitCliente, condicionVenta, descripcion, cantidad, monto)
         {
             this.PuntoDeVenta = puntoDeVenta;
@@ -62,15 +62,15 @@ namespace BillBakerCore
             get => this.conceptoAIncluir;
             set => this.conceptoAIncluir = Validador.ValidarObligatorio(value, nameof(ConceptoAIncluir));
         }
-        public string PeriodoDesde
+        public DateTime PeriodoDesde
         {
             get => this.periodoDesde;
-            set => this.periodoDesde = (Validador.ValidarObligatorio(value, nameof(PeriodoDesde))).ToString();
+            set => this.periodoDesde = Validador.ValidarFecha(value, nameof(PeriodoDesde));
         }
-        public string PeriodoHasta
+        public DateTime PeriodoHasta
         {
             get => this.periodoHasta;
-            set => this.periodoHasta = Validador.ValidarObligatorio(value, nameof(PeriodoHasta));
+            set => this.periodoHasta = Validador.ValidarFecha(value, nameof(PeriodoHasta));
         }
         public string CondicionIvaCliente 
         { 

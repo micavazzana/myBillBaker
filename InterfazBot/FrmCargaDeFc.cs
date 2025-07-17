@@ -1,11 +1,14 @@
 ﻿using BillBakerCore;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
+
 
 namespace InterfazBot
 {
     public partial class FrmCargaDeFc : Form
     {
         private Baker facturador;
+        private List<Factura> listaFacturas;
 
         /// <summary>
         /// Constructor
@@ -19,6 +22,7 @@ namespace InterfazBot
             this.facturador = miFacturador;
             btnCargarExcel.Enabled = false;
             btnGenerarFC.Enabled = false;
+            listaFacturas = new List<Factura>();
         }
 
         /// <summary>
@@ -35,7 +39,7 @@ namespace InterfazBot
             if (ventanas.Count > 1)
             {
                 facturador.ControladorChrome.SwitchTo().Window(ventanas[1]);
-             
+
                 if (facturador.ControladorChrome.Url.Contains("rcel"))
                 {
                     btnCargarExcel.Enabled = true;
@@ -50,6 +54,48 @@ namespace InterfazBot
             {
                 MessageBox.Show("no hay otras ventanas abiertas");
             }
+        }
+
+        private void btnCargarExcel_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                openFileDialog.Filter = "Archivos de Excel (*.xlsx;*.xls)|*.xlsx;*.xls";
+                openFileDialog.Title = "Seleccionar archivo de Excel";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivo = openFileDialog.FileName;
+
+                    try
+                    {
+                        // Acá podrías validar el archivo si querés
+                        List<Factura> facturas = GestorData.ExcelReader(rutaArchivo);
+
+                        // Mostrás en tu DataGridView
+                        dgvFacturas.DataSource = facturas;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al leer el archivo Excel:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnGenerarFC_Click(object sender, EventArgs e)
+        {
+            foreach (Factura f in listaFacturas)
+            {
+                var errores = Validador.ValidarFactura(f);
+                if (errores.Any())
+                {
+                    MessageBox.Show($"Errores en una factura:\n\n{string.Join("\n", errores)}", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Detenés la ejecución hasta que el usuario corrija
+                }
+            }
+
         }
     }
 }

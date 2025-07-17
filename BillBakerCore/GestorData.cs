@@ -29,8 +29,8 @@ namespace BillBakerCore
                     {
                         Factura fc = new Factura
                         (
-                            fila.Cell("A").GetValue<string>(),// Periodo desde
-                            fila.Cell("B").GetValue<string>(),// Periodo hasta
+                            fila.Cell("A").GetValue<DateTime>(),// Periodo desde
+                            fila.Cell("B").GetValue<DateTime>(),// Periodo hasta
                             fila.Cell("C").GetValue<string>(),// Condicion Iva 
                             fila.Cell("D").GetValue<string>(),// Cuit cliente
                             fila.Cell("E").GetValue<string>(), //Condicion de venta

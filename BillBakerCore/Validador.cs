@@ -13,21 +13,6 @@ namespace BillBakerCore
     public static class Validador
     {
         /// <summary>
-        /// Chequea si el valor que recibe es null o vacío
-        /// Arroja una Exception de ser asi, sino devuelve el valor.
-        /// </summary>
-        /// <param name="valor"></param>
-        /// <param name="campo"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public static string ValidarObligatorio(string valor, string campo)
-        {
-            if (string.IsNullOrWhiteSpace(valor))
-                throw new ArgumentException($"{campo} no puede estar vacío.");
-            return valor;
-        }
-
-        /// <summary>
         /// Chequea que los datos no estén vacíos antes del envío al sitio
         /// </summary>
         /// <param name="cuit"> cuit del usuario</param>
@@ -57,6 +42,57 @@ namespace BillBakerCore
                 return true; // No hay mensaje → no falló el login
             }
         }
+
+        /// <summary>
+        /// Chequea si el valor que recibe es null o vacío
+        /// Arroja una ArgumentException de ser asi, sino devuelve el valor.
+        /// </summary>
+        /// <param name="valor">El valor a validar</param>
+        /// <param name="campo">El nombre de la propiedad cuyo valor es nulo o vacío</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static string ValidarObligatorio(string valor, string campo)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                throw new ArgumentException($"{campo} no puede estar vacío.");
+            return valor;
+        }
+
+        /// <summary>
+        /// Chequea si la fecha que recibe está vacía o es inválida en formato.
+        /// Arroja una Exception de ser asi, sino devuelve el valor
+        /// </summary>
+        /// <param name="fecha">La fecha a validar</param>
+        /// <param name="campo">El nombre de la propiedad cuyo valor es nulo o vacío</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static DateTime ValidarFecha(DateTime fecha, string campo)
+        {
+            if (fecha == default)
+                throw new Exception($"{campo} no puede estar vacío o tener una fecha inválida.");
+
+            return fecha;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="f">La factura a validar</param>
+        /// <returns></returns>
+        public static List<string> ValidarFactura(Factura f)
+        {
+            List<string> errores = new List<string>();
+
+            if (f.PeriodoDesde > f.PeriodoHasta)
+                errores.Add("El período 'Desde' no puede ser mayor que el período 'Hasta'.");
+
+            if (string.IsNullOrWhiteSpace(f.CondicionIvaCliente))
+                errores.Add("Debe especificar la condición IVA del cliente.");
+
+            return errores;
+        }
+        
 
         /// <summary>
         /// Verifica si el navegador sigue activo para chequear que el usuario no lo haya cerrado
