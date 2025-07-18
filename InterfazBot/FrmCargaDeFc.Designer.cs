@@ -37,10 +37,9 @@
             // 
             // btnRCEL
             // 
-            btnRCEL.Location = new Point(54, 40);
-            btnRCEL.Margin = new Padding(3, 2, 3, 2);
+            btnRCEL.Location = new Point(62, 53);
             btnRCEL.Name = "btnRCEL";
-            btnRCEL.Size = new Size(119, 33);
+            btnRCEL.Size = new Size(136, 44);
             btnRCEL.TabIndex = 0;
             btnRCEL.Text = "Estoy en RCEL";
             btnRCEL.UseVisualStyleBackColor = true;
@@ -48,10 +47,9 @@
             // 
             // btnCargarExcel
             // 
-            btnCargarExcel.Location = new Point(178, 40);
-            btnCargarExcel.Margin = new Padding(3, 2, 3, 2);
+            btnCargarExcel.Location = new Point(203, 53);
             btnCargarExcel.Name = "btnCargarExcel";
-            btnCargarExcel.Size = new Size(119, 33);
+            btnCargarExcel.Size = new Size(136, 44);
             btnCargarExcel.TabIndex = 1;
             btnCargarExcel.Text = "Cargar Excel";
             btnCargarExcel.UseVisualStyleBackColor = true;
@@ -59,10 +57,9 @@
             // 
             // btnGenerarFC
             // 
-            btnGenerarFC.Location = new Point(548, 40);
-            btnGenerarFC.Margin = new Padding(3, 2, 3, 2);
+            btnGenerarFC.Location = new Point(62, 402);
             btnGenerarFC.Name = "btnGenerarFC";
-            btnGenerarFC.Size = new Size(119, 33);
+            btnGenerarFC.Size = new Size(136, 44);
             btnGenerarFC.TabIndex = 2;
             btnGenerarFC.Text = "Generar Facturas";
             btnGenerarFC.UseVisualStyleBackColor = true;
@@ -71,23 +68,21 @@
             // dgvFacturas
             // 
             dgvFacturas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvFacturas.Location = new Point(54, 78);
-            dgvFacturas.Margin = new Padding(3, 2, 3, 2);
+            dgvFacturas.Location = new Point(62, 104);
             dgvFacturas.Name = "dgvFacturas";
             dgvFacturas.RowHeadersWidth = 51;
-            dgvFacturas.Size = new Size(612, 219);
+            dgvFacturas.Size = new Size(699, 292);
             dgvFacturas.TabIndex = 3;
             // 
             // FrmCargaDeFc
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 338);
+            ClientSize = new Size(826, 503);
             Controls.Add(dgvFacturas);
             Controls.Add(btnGenerarFC);
             Controls.Add(btnCargarExcel);
             Controls.Add(btnRCEL);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmCargaDeFc";
             Text = "FrmCargaDeFc";
             ((System.ComponentModel.ISupportInitialize)dgvFacturas).EndInit();

@@ -54,7 +54,7 @@ namespace BillBakerCore
         }
         public string TipoFactura 
         { 
-            get => this.tipoFactura; 
+            get => this.tipoFactura;
             set => this.tipoFactura = Validador.ValidarObligatorio(value, nameof(TipoFactura));
         }
         public string ConceptoAIncluir
