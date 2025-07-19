@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillBakerCore
+﻿namespace BillBakerCore
 {
     public class Factura
     {
         //Pantalla 1 : Dropdowns
-        private string puntoDeVenta;
-        private string tipoFactura;
+        // private string puntoDeVenta; Unico select
+        // private string tipoFactura;  Factura C
+        // private string conceptoAIncluir; si es servicios o productos
 
         //Pantalla 2 : Dropdowns
-        private string conceptoAIncluir; //si es servicios o productos
         private DateTime periodoDesde;
         private DateTime periodoHasta;
 
@@ -38,30 +32,8 @@ namespace BillBakerCore
             this.Cantidad = cantidad;
             this.Monto = monto;
         }
-        public Factura(string puntoDeVenta, string tipoFactura, string conceptoAIncluir, DateTime periodoDesde, DateTime periodoHasta, string condicionIva, string cuitCliente, string condicionVenta, string descripcion, int cantidad, decimal monto) 
-            : this(periodoDesde, periodoHasta, condicionIva, cuitCliente, condicionVenta, descripcion, cantidad, monto)
-        {
-            this.PuntoDeVenta = puntoDeVenta;
-            this.TipoFactura = tipoFactura;
-            this.ConceptoAIncluir = conceptoAIncluir;
-        }
 
         //Getters and Setters
-        public string PuntoDeVenta
-        {
-            get => this.puntoDeVenta;
-            set => this.puntoDeVenta = Validador.ValidarObligatorio(value, nameof(PuntoDeVenta));
-        }
-        public string TipoFactura 
-        { 
-            get => this.tipoFactura;
-            set => this.tipoFactura = Validador.ValidarObligatorio(value, nameof(TipoFactura));
-        }
-        public string ConceptoAIncluir
-        {
-            get => this.conceptoAIncluir;
-            set => this.conceptoAIncluir = Validador.ValidarObligatorio(value, nameof(ConceptoAIncluir));
-        }
         public DateTime PeriodoDesde
         {
             get => this.periodoDesde;

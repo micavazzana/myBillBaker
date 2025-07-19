@@ -13,6 +13,7 @@ namespace InterfazBot
         /// <summary>
         /// Constructor
         /// Inicializa el facturador con el que recibe del formulario anterior.
+        /// Instancia la lista de facturas con la que trabajaremos
         /// Deshabilita todos los botones que se habilitaran solo si estamos en la pestaña correcta.
         /// </summary>
         /// <param name="miFacturador"></param>
@@ -20,14 +21,14 @@ namespace InterfazBot
         {
             InitializeComponent();
             this.facturador = miFacturador;
+            this.listaFacturas = new List<Factura>();
             btnCargarExcel.Enabled = false;
             btnGenerarFC.Enabled = false;
-            listaFacturas = new List<Factura>();
         }
 
         /// <summary>
-        /// Chequea que haya más de una pestaña ya que RCEL abre en una nueva,
-        /// de ser el caso switchea a la primer ventana abierta y chequea si esta es la de RCEL.
+        /// Chequea que haya más de una pestaña ya que RCEL se abre en una nueva,
+        /// de ser el caso switchea a la primer ventana abierta y chequea si es la de RCEL.
         /// De ser que estamos en RCEL entonces habilitamos los botones que permiten empezar a crear FC
         /// </summary>
         /// <param name="sender"></param>
@@ -56,6 +57,11 @@ namespace InterfazBot
             }
         }
 
+        /// <summary>
+        /// Carga el excel creado por el usuario con todos los datos necesarios para la FC
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCargarExcel_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -70,11 +76,8 @@ namespace InterfazBot
 
                     try
                     {
-                        // Acá podrías validar el archivo si querés
-                        List<Factura> facturas = GestorData.ExcelReader(rutaArchivo);
-
-                        // Mostrás en tu DataGridView
-                        dgvFacturas.DataSource = facturas;
+                        this.listaFacturas = GestorData.ExcelReader(rutaArchivo);
+                        dgvFacturas.DataSource = this.listaFacturas;
                     }
                     catch (Exception ex)
                     {
@@ -84,9 +87,14 @@ namespace InterfazBot
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGenerarFC_Click(object sender, EventArgs e)
         {
-            foreach (Factura f in listaFacturas)
+            foreach (Factura f in this.listaFacturas)
             {
                 var errores = Validador.ValidarFactura(f);
                 if (errores.Any())

@@ -1,19 +1,14 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BillBakerCore
 {
     /// <summary>
-    /// Clase que validará que los datos del login sean correctos
+    /// Clase que validará que los datos ingresados sean correctos
     /// </summary>
     public static class Validador
     {
         /// <summary>
-        /// Chequea que los datos no estén vacíos antes del envío al sitio
+        /// Chequea que los datos de login no estén vacíos antes del envío al sitio
         /// </summary>
         /// <param name="cuit"> cuit del usuario</param>
         /// <param name="clave"> clave fiscal del usuario</param>
@@ -72,27 +67,7 @@ namespace BillBakerCore
                 throw new Exception($"{campo} no puede estar vacío o tener una fecha inválida.");
 
             return fecha;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="f">La factura a validar</param>
-        /// <returns></returns>
-        public static List<string> ValidarFactura(Factura f)
-        {
-            List<string> errores = new List<string>();
-
-            if (f.PeriodoDesde > f.PeriodoHasta)
-                errores.Add("El período 'Desde' no puede ser mayor que el período 'Hasta'.");
-
-            if (string.IsNullOrWhiteSpace(f.CondicionIvaCliente))
-                errores.Add("Debe especificar la condición IVA del cliente.");
-
-            return errores;
-        }
-        
+        }            
 
         /// <summary>
         /// Verifica si el navegador sigue activo para chequear que el usuario no lo haya cerrado
@@ -115,5 +90,23 @@ namespace BillBakerCore
 
         // public static bool ExcelCargadoCorrectamente
         // public static bool FacturaValida
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="f">La factura a validar</param>
+        /// <returns></returns>
+        public static List<string> ValidarFactura(Factura f)
+        {
+            List<string> errores = new List<string>();
+
+            if (f.PeriodoDesde > f.PeriodoHasta)
+                errores.Add("El período 'Desde' no puede ser mayor que el período 'Hasta'.");
+
+            if (string.IsNullOrWhiteSpace(f.CondicionIvaCliente))
+                errores.Add("Debe especificar la condición IVA del cliente.");
+
+            return errores;
+        }
     }
 }
